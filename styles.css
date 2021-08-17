@@ -35,8 +35,8 @@ button  {
     width: 25%;
     table-layout:auto;
     border-collapse: collapse;
-    background-color: #101820FF; /* Green background */
-    border: 0px solid rgb(255, 255, 255); /* Green border */
+    background-color: #101820FF; 
+    border: 0px solid rgb(255, 255, 255); 
     cursor: pointer; 
     float: left; 
   }
@@ -48,10 +48,9 @@ button:after {
   }
   
 button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
+    border-right: none; 
   }
   
-  /* Add a background color on hover */
 button:hover {
     background-color: #909290;
   }
