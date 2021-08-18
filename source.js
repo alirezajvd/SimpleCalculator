@@ -15,13 +15,14 @@ userInput.forEach(function(button) {
 function calculate(event){
     
     const buttonVal = event.target.value;
-    //console.log('1:' +displayTemp);    
+
     if (buttonVal == "C"){
         displayTemp = '';
         display.value = '';
         reset_array();        //resets all the var and arrays to the first place
     }
     
+
     else if(buttonVal == "back"){
         //...to do: *check first time entering exception here*
         if (displayTemp == '')                           //this means that last input was an operation
@@ -41,7 +42,13 @@ function calculate(event){
         }
 
     }
-    
+
+
+   //  else if(buttonVal == "x2"){
+   //     displayTemp *= displayTemp;
+    //}
+
+
     else if (buttonVal == "="){
         if (display.value != ''){
             nums[i] = parseFloat(displayTemp);
@@ -58,30 +65,45 @@ function calculate(event){
     {
         if (event.target.className == "operation")
         {
+
             if (display.value == ''){
                 reset_array();
-            }    
+            } 
+
             else if (displayTemp == ''){                //consecutive operations will be replaced by the last user input
                 display.value = display.value.slice(0, -1); 
                 operator[j-1] =buttonVal;
             }
+
             else{
                 nums[i] = parseFloat(displayTemp); //stores the isolated numbers to num array
                 operator[j] = buttonVal;          
                 j++, i++;
                 displayTemp = ''; 
             }     
-            display.value += buttonVal;      
+            display.value += buttonVal;     
+
         }
         else{
-            if (display.value.charAt(display.value.length-1) == "." && event.target.value =="." ){console.log("im here")}
+            
+            if (event.target.value =="." && check_dot_exception(event.target.value)){}
             else{
                 display.value += buttonVal;  
+                displayTemp += buttonVal;
             }
-            displayTemp += buttonVal;
+        }      
+    }
+}
+
+function check_dot_exception(x){
+    if (display.value.charAt(display.value.length-1) == "." ){
+        return true;
+    }
+
+    for(var k=0; k<displayTemp.length; k++){
+        if (displayTemp[k] == "."){
+            return true;
         }
-        
-              
     }
 }
 
@@ -118,10 +140,10 @@ function operation(y){
         else if (operator[k] == "-"){
             nums[k+1] = nums[k] - nums[k+1];
         }
+        else if (operator[k] == "%"){
+            nums[k+1] = nums[k] % nums[k+1];
+        }
     }
     return nums[k];
 }
 
-
-//fix puting operations as a first input
-//fix consecutive dots
